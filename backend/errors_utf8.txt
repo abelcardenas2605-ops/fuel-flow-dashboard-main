@@ -1,0 +1,2 @@
+﻿src/modules/transactions/transactions.controller.ts(3,38): error TS2307: Cannot find module './dto/create-transaction.dto' or its corresponding type declarations.
+src/modules/transactions/transactions.service.ts(3,38): error TS2307: Cannot find module './dto/create-transaction.dto' or its corresponding type declarations.
