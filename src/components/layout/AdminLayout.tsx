@@ -53,7 +53,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
   const fetchNotifications = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:3000/notifications', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/notifications`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -90,7 +90,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
   const markAsRead = async (id: number) => {
     try {
       const token = localStorage.getItem('token');
-      await fetch(`http://localhost:3000/notifications/${id}/read`, {
+      await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/notifications/${id}/read`, {
         method: 'PATCH',
         headers: { 'Authorization': `Bearer ${token}` }
       });

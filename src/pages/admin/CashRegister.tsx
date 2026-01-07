@@ -71,7 +71,7 @@ export default function CashRegisterPage() {
   const checkCurrentShift = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:3000/shifts/current', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/shifts/current`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {
@@ -98,7 +98,7 @@ export default function CashRegisterPage() {
 
   const fetchFuels = async () => {
     try {
-      const res = await fetch('http://localhost:3000/fuels');
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/fuels`);
       if (res.ok) {
         const data = await res.json();
         setFuels(data.map((f: any) => ({
@@ -117,7 +117,7 @@ export default function CashRegisterPage() {
     if (!openingAmount) return;
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:3000/shifts/open', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/shifts/open`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -145,7 +145,7 @@ export default function CashRegisterPage() {
     if (!closingAmount) return;
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:3000/shifts/close', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/shifts/close`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -173,7 +173,7 @@ export default function CashRegisterPage() {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:3000/transactions', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/transactions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({

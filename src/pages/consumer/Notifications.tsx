@@ -19,7 +19,7 @@ export default function Notifications() {
             const token = localStorage.getItem('token');
             if (!token) return;
 
-            const response = await fetch('http://localhost:3000/notifications', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/notifications`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (response.ok) {
@@ -35,7 +35,7 @@ export default function Notifications() {
     const markAsRead = async (id: number) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:3000/notifications/${id}/read`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/notifications/${id}/read`, {
                 method: 'PATCH',
                 headers: { 'Authorization': `Bearer ${token}` }
             });

@@ -33,7 +33,7 @@ export default function History() {
   const fetchHistory = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:3000/transactions/history', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/transactions/history`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {

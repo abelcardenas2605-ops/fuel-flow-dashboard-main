@@ -69,9 +69,9 @@ export default function ConsumerDashboard() {
 
         // Fetch individually to better handle partial failures
         const [vRes, fRes, tRes] = await Promise.all([
-          fetch('http://localhost:3000/vehicles', { headers }).catch(e => ({ ok: false, error: e })),
-          fetch('http://localhost:3000/fuels', { headers }).catch(e => ({ ok: false, error: e })),
-          fetch('http://localhost:3000/transactions/history', { headers }).catch(e => ({ ok: false, error: e }))
+          fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/vehicles`, { headers }).catch(e => ({ ok: false, error: e })),
+          fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/fuels`, { headers }).catch(e => ({ ok: false, error: e })),
+          fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/transactions/history`, { headers }).catch(e => ({ ok: false, error: e }))
         ]);
 
         // Vehicles

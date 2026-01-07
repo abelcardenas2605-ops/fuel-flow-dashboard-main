@@ -65,7 +65,7 @@ export default function UsersManagement() {
   const fetchUsers = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:3000/users', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/users`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -86,7 +86,7 @@ export default function UsersManagement() {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:3000/users/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/users/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -124,8 +124,8 @@ export default function UsersManagement() {
     try {
       const token = localStorage.getItem('token');
       const url = editingUser
-        ? `http://localhost:3000/users/${editingUser.id}`
-        : 'http://localhost:3000/auth/register'; // Or a dedicated create user endpoint if dealing with non-auth specific logic
+        ? `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/users/${editingUser.id}`
+        : `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/auth/register`; // Or a dedicated create user endpoint if dealing with non-auth specific logic
 
       // For editing we use PATCH, for creating we use POST to register (or create user)
       // Note: The User.create endpoint we saw earlier was likely auth/register. Ideally Admin creates users via users endpoint if pure CRUD.
@@ -134,7 +134,7 @@ export default function UsersManagement() {
       // WAIT: UsersController doesn't have create. So we use auth/register for new users.
 
       const method = editingUser ? 'PATCH' : 'POST';
-      const finalUrl = editingUser ? `http://localhost:3000/users/${editingUser.id}` : 'http://localhost:3000/auth/register';
+      const finalUrl = editingUser ? `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/users/${editingUser.id}` : `${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/auth/register`;
 
       const body: any = { ...formData };
       if (!body.password && editingUser) delete body.password; // Don't send empty password on edit

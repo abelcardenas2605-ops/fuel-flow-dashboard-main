@@ -66,7 +66,7 @@ export default function Profile() {
       const token = localStorage.getItem('token');
       if (!token) return;
 
-      const response = await fetch('http://localhost:3000/vehicles', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/vehicles`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -87,7 +87,7 @@ export default function Profile() {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3000/vehicles', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/vehicles`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -115,7 +115,7 @@ export default function Profile() {
 
     try {
       const token = localStorage.getItem('token');
-      await fetch(`http://localhost:3000/vehicles/${id}`, {
+      await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/vehicles/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -130,7 +130,7 @@ export default function Profile() {
   const handleSave = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:3000/users/${user?.id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/users/${user?.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(formData)
@@ -150,7 +150,7 @@ export default function Profile() {
     if (!confirm("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.")) return;
     try {
       const token = localStorage.getItem('token');
-      await fetch(`http://localhost:3000/users/${user?.id}`, {
+      await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/users/${user?.id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });

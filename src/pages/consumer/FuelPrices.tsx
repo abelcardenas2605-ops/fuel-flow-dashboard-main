@@ -14,7 +14,7 @@ export default function FuelPrices() {
 
   const fetchFuels = async () => {
     try {
-      const res = await fetch('http://localhost:3000/fuels');
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/fuels`);
       if (res.ok) {
         const data = await res.json();
         const mapped: Fuel[] = data.map((f: any) => ({

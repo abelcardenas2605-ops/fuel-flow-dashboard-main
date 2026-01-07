@@ -30,7 +30,7 @@ export default function Reports() {
     try {
       const token = localStorage.getItem('token');
       // ideally filter by dateRange in query params
-      const res = await fetch('http://localhost:3000/transactions', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/transactions`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {

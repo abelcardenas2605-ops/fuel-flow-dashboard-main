@@ -22,7 +22,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       try {
         const token = localStorage.getItem('token');
         if (token) {
-          const response = await fetch('http://localhost:3000/auth/profile', {
+          const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/auth/profile`, {
             headers: { 'Authorization': `Bearer ${token}` }
           });
 
@@ -71,7 +71,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (email: string, password: string, role: UserRole = 'consumer') => {
     try {
-      const response = await fetch('http://localhost:3000/auth/login', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -101,7 +101,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const register = async (name: string, email: string, password: string, role: string, employeeId?: string) => {
     try {
-      const response = await fetch('http://localhost:3000/auth/register', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password, role, employeeId }),

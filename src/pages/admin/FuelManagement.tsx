@@ -31,7 +31,7 @@ export default function FuelManagement() {
 
   const fetchFuels = async () => {
     try {
-      const res = await fetch('http://localhost:3000/fuels');
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/fuels`);
       if (res.ok) {
         const data = await res.json();
         // Map backend simple type to frontend complex type
@@ -73,7 +73,7 @@ export default function FuelManagement() {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:3000/fuels/${editingFuel.id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/fuels/${editingFuel.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

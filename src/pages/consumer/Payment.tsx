@@ -54,8 +54,8 @@ export default function Payment() {
       try {
         const token = localStorage.getItem('token');
         const [vRes, fRes] = await Promise.all([
-          fetch('http://localhost:3000/vehicles', { headers: { 'Authorization': `Bearer ${token}` } }),
-          fetch('http://localhost:3000/fuels', { headers: { 'Authorization': `Bearer ${token}` } })
+          fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/vehicles`, { headers: { 'Authorization': `Bearer ${token}` } }),
+          fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/fuels`, { headers: { 'Authorization': `Bearer ${token}` } })
         ]);
 
         if (vRes.ok) setVehicles(await vRes.json());
@@ -97,7 +97,7 @@ export default function Payment() {
     setIsProcessing(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3000/transactions', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/transactions`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
