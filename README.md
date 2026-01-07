@@ -1,73 +1,229 @@
-# Welcome to your Lovable project
+# ⛽ Gas Station Management System
 
-## Project info
+Sistema de Gestión de Estaciones de Servicio desarrollado como **prueba técnica**, diseñado para administrar de forma integral las operaciones de una gasolinera mediante una arquitectura **full‑stack moderna**, segura y escalable.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+Este proyecto demuestra buenas prácticas de desarrollo frontend y backend, separación de responsabilidades, autenticación basada en roles y una experiencia de usuario clara tanto para administradores como para consumidores.
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 📌 Objetivo del Proyecto
 
-**Use Lovable**
+El objetivo principal del sistema es centralizar y digitalizar las operaciones diarias de una estación de servicio, permitiendo:
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+* Gestión de usuarios con distintos roles (Administrador y Consumidor)
+* Control de ventas de combustible
+* Administración de tipos de combustible y precios
+* Registro de vehículos por consumidor
+* Visualización de historiales y reportes
+* Autenticación y autorización seguras
 
-Changes made via Lovable will be committed automatically to this repo.
+---
 
-**Use your preferred IDE**
+## 🛠️ Stack Tecnológico
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Frontend
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+* **Framework**: React + Vite
+* **Lenguaje**: TypeScript
+* **Estilos**: Tailwind CSS
+* **UI Components**: shadcn/ui (Radix UI)
+* **Iconos**: Lucide React
+* **Routing**: react-router-dom
+* **Estado Global**: Context API (Autenticación)
+* **Data Fetching**: @tanstack/react-query
 
-Follow these steps:
+El frontend está diseñado con un enfoque **component‑driven**, priorizando reutilización, accesibilidad y una UI moderna.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+---
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Backend
 
-# Step 3: Install the necessary dependencies.
-npm i
+* **Framework**: NestJS
+* **Lenguaje**: TypeScript
+* **ORM**: Prisma
+* **Base de Datos**: PostgreSQL
+* **Autenticación**: JWT + Passport
+* **Documentación**: Swagger
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+El backend sigue una **arquitectura modular**, alineada con las mejores prácticas de NestJS, facilitando escalabilidad y mantenimiento.
+
+---
+
+### DevOps & Deployment
+
+* **Docker**: Contenerización de PostgreSQL
+* **Docker Compose**: Orquestación local
+* **Render**: Despliegue de frontend y backend
+
+---
+
+## 🏗️ Arquitectura del Sistema
+
+### Backend – Arquitectura Modular
+
+El sistema está organizado en módulos independientes que encapsulan su lógica de negocio:
+
+* **Auth Module**
+
+  * Autenticación mediante JWT
+  * Uso de Passport con estrategia JWT
+  * Emisión de tokens con información de rol
+  * Guards personalizados (`JwtAuthGuard`, `RolesGuard`)
+
+* **Users Module**
+
+  * CRUD de usuarios
+  * Gestión de perfiles (ADMIN / CONSUMER)
+
+* **Fuel Module**
+
+  * Administración de tipos de combustible
+  * Actualización de precios
+
+* **Transactions Module**
+
+  * Registro de ventas de combustible
+  * Asociación a usuarios y vehículos
+
+* **Vehicles Module**
+
+  * Gestión de vehículos por consumidor
+
+* **Shifts Module**
+
+  * Control de turnos (si aplica)
+
+* **Notifications Module**
+
+  * Envío de alertas o notificaciones del sistema
+
+---
+
+### Frontend – Estructura y Navegación
+
+El frontend diferencia claramente la experiencia entre **Administrador** y **Consumidor**.
+
+#### 📁 Estructura de Carpetas
+
+```
+src/
+ ├── components/
+ │   ├── ui/          # Componentes base (shadcn/ui)
+ │   ├── layout/      # Layouts generales (AdminLayout)
+ ├── pages/
+ │   ├── admin/       # Dashboard, Reportes, Usuarios, Caja
+ │   ├── consumer/    # Historial, Precios, Perfil
+ ├── contexts/
+ │   └── AuthContext  # Manejo de sesión y token
+```
+
+#### 🔑 Componentes Clave
+
+* **AdminLayout**: Sidebar + Header para navegación administrativa
+* **ProtectedRoute**: Protección de rutas por autenticación y rol
+
+---
+
+## 🔐 Autenticación y Autorización
+
+* Login basado en credenciales
+* Emisión de JWT
+* Persistencia de sesión en frontend
+* Acceso a rutas restringido por rol
+
+Roles implementados:
+
+* **ADMIN**: Acceso completo al sistema
+* **CONSUMER**: Acceso limitado a historial, perfil y precios
+
+---
+
+## 🚀 Ejecución Local
+
+### Prerrequisitos
+
+* Node.js v18+
+* Docker & Docker Compose
+* Git
+
+---
+
+### Pasos de Instalación
+
+1️⃣ **Clonar repositorio**
+
+```bash
+git clone <URL_DEL_REPOSITORIO>
+cd nombre-del-proyecto
+```
+
+2️⃣ **Configurar variables de entorno (Backend)**
+
+```bash
+cd backend
+cp .env.example .env
+```
+
+Configurar correctamente `DATABASE_URL`.
+
+3️⃣ **Levantar base de datos**
+
+```bash
+docker-compose up -d
+```
+
+4️⃣ **Iniciar Backend**
+
+```bash
+npm install
+npx prisma migrate dev
+npm run start:dev
+```
+
+Backend disponible en:
+
+```
+http://localhost:3000
+```
+
+5️⃣ **Iniciar Frontend**
+
+```bash
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Frontend disponible en:
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```
+http://localhost:8080
+```
 
-**Use GitHub Codespaces**
+---
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🐳 Comandos Docker Útiles
 
-## What technologies are used for this project?
+```bash
+docker-compose up -d      # Iniciar servicios
+docker-compose down       # Detener servicios
+docker-compose logs -f    # Ver logs
+```
 
-This project is built with:
+---
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 📄 Licencia
 
-## How can I deploy this project?
+Proyecto privado desarrollado exclusivamente con fines **demostrativos y de evaluación técnica**.
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+---
 
-## Can I connect a custom domain to my Lovable project?
+## ✨ Notas Finales
 
-Yes, you can!
+Este proyecto refleja:
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+* Buenas prácticas en arquitectura full‑stack
+* Uso moderno del ecosistema React y NestJS
+* Seguridad basada en roles
+* Código escalable y mantenible
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Ideal como base para un sistema real de gestión de estaciones de servicio o como demostración técnica profesional.
