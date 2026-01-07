@@ -14,10 +14,11 @@ async function bootstrap() {
 
     // CORS
     app.enableCors({
-        origin: '*', // Allow all for development
+        origin: process.env.ALLOWED_ORIGIN || '*', // Use env var or allow all for dev/testing
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
         preflightContinue: false,
         optionsSuccessStatus: 204,
+        credentials: true,
     });
 
     // Swagger Configuration
@@ -31,7 +32,8 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('api/docs', app, document);
 
-    await app.listen(3000);
-    console.log('Application is running on: http://localhost:3000 (CORS Enabled)');
+    const port = process.env.PORT || 3000;
+    await app.listen(port);
+    console.log(`Application is running on: http://localhost:${port} (CORS Enabled)`);
 }
 bootstrap();
